@@ -8,7 +8,7 @@ function getKnightMoves(index, board) {
         const pos = index + move;
         
         if (pos >= 0 && pos < 64 && Math.abs((pos % 8) - (index % 8)) <= 2) {
-            if (board[pos] === pieces.nothing || "prnbqk".includes(board[pos])) {
+            if (board[pos] === pieces.nothing || Object.values(pieces.black).includes(board[pos])) {
                 validMoves.push(pos);
             }
         }

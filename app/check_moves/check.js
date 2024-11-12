@@ -14,13 +14,13 @@ function check() {
         if (moveScopes.includes(String(position))) {
             const boardCopy = [...values];
             boardCopy[position] = boardCopy[moveTarget];
-            boardCopy[moveTarget] = 0;
+            boardCopy[moveTarget] = pieces.nothing;
 
             let kingInCheck = false;
             for (let i = 0; i < 64; i++) {
-                if ("prnbkq".includes(boardCopy[i])) {
+                if (Object.values(pieces.black).includes(boardCopy[i])) {
                     const attackScopes = checkWhite(i, boardCopy) || [];
-                    if (attackScopes.some(scope => boardCopy[scope] === 'whiteKing')) {
+                    if (attackScopes.some(scope => boardCopy[scope] === pieces.white.king)) {
                         kingInCheck = true;
                         alert('Salve seu rei');
                         break;
@@ -31,16 +31,16 @@ function check() {
             if (!kingInCheck) {
                 // Atualiza o tabuleiro e verifica condições especiais
                 values[position] = values[moveTarget];
-                values[moveTarget] = 0;
+                values[moveTarget] = pieces.nothing;
 
                 // Lógica de roque
                 if (cl) {
                     if (position === 62 && moveTarget === 60) { // Roque pequeno
-                        values[63] = 0;
-                        values[61] = "whiteTower";
+                        values[63] = pieces.nothing;
+                        values[61] = pieces.white.tower;
                     } else if (position === 58 && moveTarget === 60) { // Roque grande
-                        values[56] = 0;
-                        values[59] = "whiteTower";
+                        values[56] = pieces.nothing;
+                        values[59] = pieces.white.tower;
                     }
                 }
 
@@ -50,8 +50,8 @@ function check() {
                 else if (moveTarget === 56) cr1 = true;
 
                 // Promoção de peão
-                if (values[position] === "whitePawn" && position < 8) {
-                    values[position] = "whiteQueen";
+                if (values[position] === pieces.white.pawn && position < 8) {
+                    values[position] = pieces.white.queen;
                 }
 
                 // Finaliza a jogada

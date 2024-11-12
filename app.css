@@ -5,7 +5,7 @@ body {
 }
 
 .square {
-    background: green;
+    background: gray;
     display: inline-block;
     border: 1px solid white;
     text-align: center;

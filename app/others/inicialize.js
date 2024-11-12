@@ -68,5 +68,3 @@ function updateSquareColor() {
     });
 }
 updateSquareColor();
-
-// TODO: parei la linha 1200 e pouco

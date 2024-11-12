@@ -1,6 +1,6 @@
 function promotePawn(position) {
-    if (values[position] === "blackPawn" && position >= 56) {
-        values[position] = "blackQueen";
+    if (values[position] === pieces.black.pawn && position >= 56) {
+        values[position] = pieces.black.queen;
     }
 }
 
@@ -17,7 +17,7 @@ function executeMove(bestMove) {
     
     // Atualiza o conteúdo visual das casas
     for (let x = 0; x < 64; x++) {
-        sqs[x].innerHTML = values[x] === 0 ? "" : fonts[values[x]];
+        sqs[x].innerHTML = values[x] === pieces.nothing ? "" : fonts[values[x]];
     }
 }
 

@@ -6,9 +6,9 @@ function checkBlack(n, values) {
     function addLinearMoves(start, step, limitCondition) {
         let position = start + step;
         while (limitCondition(position)) {
-            if (values[position] === 0) {
+            if (values[position] === pieces.nothing) {
                 scopes.push(position);
-            } else if ("otmvlw".includes(values[position])) {
+            } else if (object.values(pieces.white).includes(values[position])) {
                 scopes.push(position);
                 break;
             } else {
@@ -22,9 +22,9 @@ function checkBlack(n, values) {
     function addDiagonalMoves(start, step, limitCondition) {
         let position = start + step;
         while (limitCondition(position) && Math.abs((position % 8) - (start % 8)) === Math.abs(step % 8)) {
-            if (values[position] === 0) {
+            if (values[position] === pieces.nothing) {
                 scopes.push(position);
-            } else if ("otmvlw".includes(values[position])) {
+            } else if (object.values(pieces.white).includes(values[position])) {
                 scopes.push(position);
                 break;
             } else {
@@ -43,7 +43,7 @@ function checkBlack(n, values) {
             if (
                 position >= 0 && position < 64 &&
                 Math.abs((position % 8) - (start % 8)) <= 2 &&
-                (values[position] === 0 || "otmvlw".includes(values[position]))
+                (values[position] === pieces.nothing || object.values(pieces.white).includes(values[position]))
             ) {
                 scopes.push(position);
             }
@@ -51,7 +51,7 @@ function checkBlack(n, values) {
     }
 
     // Condicionais para cada peça
-    if (piece === "whiteTower") {
+    if (piece === pieces.white.tower) {
         // Movimentos verticais e horizontais
         addLinearMoves(n, -8, pos => pos >= 0); // Para cima
         addLinearMoves(n, 8, pos => pos < 64);  // Para baixo
@@ -59,7 +59,7 @@ function checkBlack(n, values) {
         addLinearMoves(n, -1, pos => pos % 8 != 7); // Para a esquerda
     }
 
-    if (piece === "whiteBishop") {
+    if (piece === pieces.white.bishop) {
         // Movimentos diagonais
         addDiagonalMoves(n, -9, pos => pos >= 0 && pos % 8 != 7); // Diagonal para cima à esquerda
         addDiagonalMoves(n, -7, pos => pos >= 0 && pos % 8 != 0); // Diagonal para cima à direita
@@ -67,12 +67,12 @@ function checkBlack(n, values) {
         addDiagonalMoves(n, 7, pos => pos < 64 && pos % 8 != 7);  // Diagonal para baixo à esquerda
     }
 
-    if (piece === "whiteKnight") {
+    if (piece === piece.white.knight) {
         // Movimentos do cavalo
         addKnightMoves(n);
     }
 
-    if (piece === "whiteQueen") {
+    if (piece === piece.white.queen) {
         // Movimentos da rainha (combina torre e bispo)
         // Movimentos lineares
         addLinearMoves(n, -8, pos => pos >= 0); // Para cima
@@ -86,7 +86,7 @@ function checkBlack(n, values) {
         addDiagonalMoves(n, 7, pos => pos < 64 && pos % 8 != 7);  // Diagonal para baixo à esquerda
     }
 
-    if (piece === "whitePawn") {
+    if (piece === pieces.white.pawn) {
         // Movimento normal para frente
         let forward = n + 8;
         if (forward < 64 && values[forward] === 0) {
@@ -99,15 +99,15 @@ function checkBlack(n, values) {
 
         // Movimento diagonal para capturar peças adversárias
         let captureLeft = forward - 1;
-        if (captureLeft >= 0 && captureLeft % 8 != 7 && "otmvlw".includes(values[captureLeft])) {
+        if (captureLeft >= 0 && captureLeft % 8 != 7 && object.values(pieces.white).includes(values[captureLeft])) {
             scopes.push(captureLeft);
         }
 
         let captureRight = forward + 1;
-        if (captureRight < 64 && captureRight % 8 != 0 && "otmvlw".includes(values[captureRight])) {
+        if (captureRight < 64 && captureRight % 8 != 0 && object.values(pieces.white).includes(values[captureRight])) {
             scopes.push(captureRight);
         }
-    if (piece === "whiteKing") {
+    if (piece === piece.white.king) {
         const kingMoves = [8, -8, 1, -1, 9, -9, 7, -7];
         
         kingMoves.forEach(move => {
@@ -117,7 +117,7 @@ function checkBlack(n, values) {
             if (
                 position >= 0 && position < 64 && 
                 Math.abs((position % 8) - (n % 8)) <= 1 && // Limita movimento horizontal do rei
-                (values[position] === 0 || "prnbqk".includes(values[position])) // Encontra peças pretas ou casas vazias
+                (values[position] === 0 || object.values(pieces.black).includes(values[position])) // Encontra peças pretas ou casas vazias
                 )
                 {
                 scopes.push(position);

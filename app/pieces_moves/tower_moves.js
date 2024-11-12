@@ -10,9 +10,9 @@ function getTowerMoves(index, board) {
             let pos = index + move;
             
             while (pos >= 0 && pos < 64 && Math.abs((pos % 8) - (index % 8)) <= 1) {
-                if (board[pos] === 0) {
+                if (board[pos] === pieces.nothing) {
                     validMoves.push(pos);
-                } else if ("prnbqk".includes(board[pos])) {
+                } else if (object.values(pieces.black).includes(board[pos])) {
                     validMoves.push(pos);  // Adiciona posição com peça adversária
                     break;
                 } else {
@@ -30,7 +30,7 @@ function getTowerMoves(index, board) {
         while (pos >= 0 && pos < 64 && (Math.abs((pos % 8) - (index % 8)) <= 1 || direction % 8 === 0)) {
             if (board[pos] === pieces.nothing) {
                 validMoves.push(pos);
-            } else if ("prnbqk".includes(board[pos])) {
+            } else if (object.values(pieces.black).includes(board[pos])) {
                 validMoves.push(pos);
                 break;
             } else {
