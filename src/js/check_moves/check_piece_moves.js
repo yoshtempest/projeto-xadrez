@@ -1,4 +1,4 @@
-function checkPieceMoves(piece, index, board)
+export function checkPieceMoves(piece, index, board)
 {
     switch(piece)
     {

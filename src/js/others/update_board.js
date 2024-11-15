@@ -1,8 +1,10 @@
 // Atualiza o tabuleiro e destaca movimentos válidos
-function updateBoardDisplay() {
+export function updateBoard()
+{
     updateSquarecolor();
 
-    for (let i = 0; i < 64; i++) {
+    for (let i = 0; i < 64; i++)
+    {
         // Define o conteúdo de cada casa ou a deixa vazia
         sqs[i].innerHTML = values[i] !== 0 ? fonts[values[i]] : "";
     }
