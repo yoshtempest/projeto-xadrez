@@ -62,7 +62,7 @@ def init_board():
 
 # Kings
     board[0][4] = ChessPiece('black', 'king', 'images/black_king.png')
-    board[7][4] = ChessPiece('white', 'king', 'images/white_king.png')
+    board[7][4] = ChessPiece('white', 'king', 'images/white_king.png') 
 
 #Function to draw the board
 def draw_board():
